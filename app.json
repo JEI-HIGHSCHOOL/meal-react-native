@@ -1,29 +1,34 @@
 {
   "expo": {
-    "name": "school-meal-app",
-    "slug": "school-meal-app",
+    "name": "재능고등학교",
+    "slug": "jh-school-meal-app",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/logo.jpeg",
+    "icon": "./assets/logo.png",
     "userInterfaceStyle": "light",
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "me.kimdohyun.jhschoolmeal",
+      "buildNumber": "1.0.0"
     },
     "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#FFFFFF"
-      },
-      "package": "me.kimdohyun.jhschoolmeal"
+      "package": "me.kimdohyun.jhschoolmeal",
+      "googleServicesFile": "./google-services.json"
     },
     "web": {
-      "favicon": "./assets/logo.jpeg"
+      "favicon": "./assets/logo.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "da9591c1-c400-4ed3-9bc0-91dc8fd501c3"
+      }
     }
+  },
+  "react-native-google-mobile-ads": {
+    "android_app_id": "ca-app-pub-2701426579223876~6238985306"
   }
 }
