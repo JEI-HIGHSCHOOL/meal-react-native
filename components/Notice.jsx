@@ -22,7 +22,7 @@ const Notice = () => {
             />
             <Text
               style={{
-                fontWeight: "10000",
+                fontWeight: "900",
                 ...styles.font,
               }}
             >

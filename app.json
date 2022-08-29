@@ -13,11 +13,16 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "me.kimdohyun.jhschoolmeal",
-      "buildNumber": "1.0.0"
+      "buildNumber": "1.0.1",
+      "config": {
+        "googleMobileAdsAppId": "ca-app-pub-2701426579223876~7200427777"
+      }
     },
     "android": {
       "package": "me.kimdohyun.jhschoolmeal",
-      "googleServicesFile": "./google-services.json"
+      "config": {
+        "googleMobileAdsAppId": "ca-app-pub-2701426579223876~6238985306"
+      }
     },
     "web": {
       "favicon": "./assets/logo.png"
@@ -27,8 +32,5 @@
         "projectId": "da9591c1-c400-4ed3-9bc0-91dc8fd501c3"
       }
     }
-  },
-  "react-native-google-mobile-ads": {
-    "android_app_id": "ca-app-pub-2701426579223876~6238985306"
   }
 }
