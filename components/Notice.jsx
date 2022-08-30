@@ -1,7 +1,7 @@
 import { Text, View, TouchableOpacity, StyleSheet } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 
-const Notice = () => {
+const Notice = ({navigation}) => {
   return (
     <>
       <View style={styles.container}>
@@ -29,7 +29,9 @@ const Notice = () => {
               알림
             </Text>
           </View>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => {
+            navigation.navigate("알림")
+          }}>
             <Text style={styles.font}>더보기</Text>
           </TouchableOpacity>
         </View>

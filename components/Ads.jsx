@@ -28,7 +28,9 @@ export default Ads = () => {
         }}
         style={{
           marginTop: "auto",
-          marginBottom: 5,
+          marginBottom: 10,
+          marginLeft: "auto",
+          marginRight: "auto"
         }}
       />
     </>

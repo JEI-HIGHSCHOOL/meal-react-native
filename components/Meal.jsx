@@ -5,18 +5,19 @@ import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { StyleSheet, Text, View } from "react-native";
 import { IconButton } from "react-native-paper";
 import { getDate } from "../utils/date";
-import Lottie from 'lottie-react-native';
+import Lottie from "lottie-react-native";
+
 const Meals = () => {
   const [meal, setMeal] = useState();
   const [date, setDate] = useState(new Date());
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
 
-  const getMeals = async date => {
+  const getMeals = async (date) => {
     const meals = await axios
       .get(
         `https://open.neis.go.kr/hub/mealServiceDietInfo?type=json&SD_SCHUL_CODE=7310561&ATPT_OFCDC_SC_CODE=E10&MLSV_YMD=${date}&KEY=c83cfc7e1e3c48249749f57fb666ed16`
       )
-      .catch(e => {
+      .catch((e) => {
         return ["급식을 불러오는중 오류가 발생했습니다"];
       });
     if (!meals.data.mealServiceDietInfo)
@@ -27,14 +28,14 @@ const Meals = () => {
   };
 
   useEffect(() => {
-    getMeals(getDate(new Date())).then(data => {
+    getMeals(getDate(new Date())).then((data) => {
       setMeal(data);
     });
   }, []);
 
-  const onChangeDate = date => {
+  const onChangeDate = (date) => {
     setMeal(null);
-    getMeals(getDate(date)).then(data => {
+    getMeals(getDate(date)).then((data) => {
       setMeal(data);
     });
   };
@@ -46,7 +47,7 @@ const Meals = () => {
     setDatePickerVisibility(false);
   };
 
-  const handleConfirm = date => {
+  const handleConfirm = (date) => {
     setDate(date);
     onChangeDate(date);
     hideDatePicker();
@@ -99,13 +100,12 @@ const Meals = () => {
           </>
         ) : (
           <>
-            <Text style={styles.meal}>
-              <Lottie
-                source={require("../assets/animation/food_loading.json")}
-                autoPlay
-                loop
-              />
-            </Text>
+            <Lottie
+              style={styles.meal}
+              source={require("../assets/animation/food_loading.json")}
+              autoPlay
+              loop
+            />
           </>
         )}
       </View>
@@ -120,16 +120,16 @@ const styles = StyleSheet.create({
   mealList: {
     width: "90%",
     display: "flex",
-    minHeight: "17%",
+    minHeight: "26%",
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "rgb(245, 245, 244)/1",
+    backgroundColor: "white",
     padding: 12,
     borderRadius: 20,
   },
   meal: {
-    fontSize: 18,
+    fontSize: 17,
   },
   selectDate: {
     display: "flex",
