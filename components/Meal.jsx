@@ -12,12 +12,12 @@ const Meals = () => {
   const [date, setDate] = useState(new Date());
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
 
-  const getMeals = async (date) => {
+  const getMeals = async date => {
     const meals = await axios
       .get(
         `https://open.neis.go.kr/hub/mealServiceDietInfo?type=json&SD_SCHUL_CODE=7310561&ATPT_OFCDC_SC_CODE=E10&MLSV_YMD=${date}&KEY=c83cfc7e1e3c48249749f57fb666ed16`
       )
-      .catch((e) => {
+      .catch(e => {
         return ["급식을 불러오는중 오류가 발생했습니다"];
       });
     if (!meals.data.mealServiceDietInfo)
@@ -28,14 +28,14 @@ const Meals = () => {
   };
 
   useEffect(() => {
-    getMeals(getDate(new Date())).then((data) => {
+    getMeals(getDate(new Date())).then(data => {
       setMeal(data);
     });
   }, []);
 
-  const onChangeDate = (date) => {
+  const onChangeDate = date => {
     setMeal(null);
-    getMeals(getDate(date)).then((data) => {
+    getMeals(getDate(date)).then(data => {
       setMeal(data);
     });
   };
@@ -47,7 +47,7 @@ const Meals = () => {
     setDatePickerVisibility(false);
   };
 
-  const handleConfirm = (date) => {
+  const handleConfirm = date => {
     setDate(date);
     onChangeDate(date);
     hideDatePicker();
@@ -88,6 +88,9 @@ const Meals = () => {
         date={date}
         onConfirm={handleConfirm}
         onCancel={hideDatePicker}
+        textColor="black"
+        confirmTextIOS="선택"
+        cancelTextIOS="취소"
       />
       <View style={styles.mealList}>
         {meal ? (
@@ -99,14 +102,11 @@ const Meals = () => {
             ))}
           </>
         ) : (
-          <>
-            <Lottie
-              style={styles.meal}
-              source={require("../assets/animation/food_loading.json")}
-              autoPlay
-              loop
-            />
-          </>
+          <Lottie
+            source={require("../assets/animation/food_loading.json")}
+            autoPlay
+            loop
+          />
         )}
       </View>
     </>
@@ -120,16 +120,16 @@ const styles = StyleSheet.create({
   mealList: {
     width: "90%",
     display: "flex",
-    minHeight: "26%",
+    minHeight: "25%",
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "white",
+    backgroundColor: "#F0F3F4",
     padding: 12,
     borderRadius: 20,
   },
   meal: {
-    fontSize: 17,
+    fontSize: 16.5,
   },
   selectDate: {
     display: "flex",

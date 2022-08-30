@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
     width: "90%",
     display: "flex",
     flexDirection: "row",
-    marginTop: 20
+    marginTop: 15
   },
   homepage: {
     width: "32%",

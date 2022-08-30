@@ -1,4 +1,4 @@
-import { View, Image } from "react-native";
+import { View, Image, ScrollView } from "react-native";
 import Index from "./pages/index";
 import "react-native-gesture-handler";
 import { NavigationContainer } from "@react-navigation/native";
@@ -11,11 +11,41 @@ export default function App() {
   const Stack = createStackNavigator();
   return (
     <>
-      <NavigationContainer>
+      <NavigationContainer
+        theme={{
+          colors: {
+            background: "#fff",
+          },
+        }}
+      >
         <Stack.Navigator initialRouteName="index">
-          <Stack.Screen name="홈" component={Index} options={{headerTitle: () => <HeaderLogo/>, headerTintColor: "#000"}}/>
-          <Stack.Screen name="노래" component={Music} options={{headerTitle: () => <HeaderLogo/>, headerTintColor: "#000"}}/>
-          <Stack.Screen name="알림" component={Notice} options={{headerTitle: () => <HeaderLogo/>, headerTintColor: "#000"}}/>
+          <Stack.Screen
+            name="홈"
+            component={Index}
+            options={{
+              headerTitle: () => <HeaderLogo />,
+              headerTintColor: "#000",
+              headerTitleAlign: "center"
+            }}
+          />
+          <Stack.Screen
+            name="노래"
+            component={Music}
+            options={{
+              headerTitle: () => <HeaderLogo />,
+              headerTintColor: "#000",
+              headerTitleAlign: "center"
+            }}
+          />
+          <Stack.Screen
+            name="알림"
+            component={Notice}
+            options={{
+              headerTitle: () => <HeaderLogo />,
+              headerTintColor: "#000",
+              headerTitleAlign: "center"
+            }}
+          />
         </Stack.Navigator>
         <Ads />
       </NavigationContainer>
@@ -24,7 +54,12 @@ export default function App() {
 }
 
 function HeaderLogo() {
-  return <Image source={require("./assets/page_logo.png")} style={{
-    marginTop: 4
-  }} />;
+  return (
+    <Image
+      source={require("./assets/page_logo.png")}
+      style={{
+        marginTop: 4,
+      }}
+    />
+  );
 }
