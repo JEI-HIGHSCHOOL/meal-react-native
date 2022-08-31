@@ -1,33 +1,48 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Text,
   StyleSheet,
   View,
   ScrollView,
   TouchableOpacity,
-  Alert
+  Alert,
 } from "react-native";
 import { TextInput } from "react-native-paper";
 import { client } from "../utils/client";
 import styles from "../utils/styles";
-import { getDevice} from "../utils/device"
+import { getDevice } from "../utils/device";
 
 export default function Music({ navigation }) {
   const [song, setSong] = useState();
-  const addSong = async() => {
-    const deviceId = await getDevice()
-    client('POST', '/music/add', {
+  const [isDisable, setIsDisable] = useState(false);
+  
+  const addSong = async () => {
+    setIsDisable(true)
+    const deviceId = await getDevice();
+    client("POST", "/music/add", {
       deviceId,
-      song
-    }).then((res) => {
-      if(res.error) {
-        Alert.alert('오류', res.message,[{
-          text: "확인",
-          style: "cancel"
-        }])
+      song: song || song !== "" ? song : undefined ,
+    }).then(res => {
+      if (res.error) {
+        setIsDisable(false)
+        Alert.alert("오류", res.message, [
+          {
+            text: "확인",
+            style: "cancel",
+          },
+        ]);
+      } else {
+        navigation.reset({
+          routes: [
+            {
+              name: "musicsubmit",
+              params: { count: res.data }, // 보낼 데이터가 있다면
+            },
+          ],
+        });
       }
-    })
-  }
+    });
+  };
   return (
     <ScrollView style={{ minHeight: "100%", height: "100%" }}>
       <View style={styles.container}>
@@ -61,19 +76,29 @@ export default function Music({ navigation }) {
           outlineColor="#f0f2f3"
           activeOutlineColor="#f58a5b"
         />
-        <TouchableOpacity style={{
-          marginTop: 12,
-          borderRadius: 5,
-          height: 45,
-          width: "90%",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          backgroundColor:"#f58a5b"
-        }} onPress={() => {addSong()}}>
-          <Text style={{
-            color: "white"
-          }}>신청하기</Text>
+        <TouchableOpacity
+          disabled={isDisable}
+          style={{
+            marginTop: 12,
+            borderRadius: 5,
+            height: 45,
+            width: "90%",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            backgroundColor: !song || !isDisable ? "#f58a5b" : "#ffcab2",
+          }}
+          onPress={() => {
+            addSong();
+          }}
+        >
+          <Text
+            style={{
+              color: "white",
+            }}
+          >
+            {!isDisable ? "신청하기" : "신청중.."}
+          </Text>
         </TouchableOpacity>
       </View>
     </ScrollView>
@@ -85,7 +110,7 @@ const pageStyles = StyleSheet.create({
     backgroundColor: "rgb(255,251,235)",
     padding: 10,
     width: "90%",
-    borderRadius: 20,
+    borderRadius: 5,
   },
   alertTitle: {
     color: "rgb(180,83,9)",

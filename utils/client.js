@@ -16,7 +16,7 @@ export const client = async (
           ...headers,
           Authorization: auth ? "Bearer " + auth : "",
         },
-        url: config.API_URL + endpoints,
+        url: (__DEV__ ? config.DEV_API_URL : config.API_URL)  + endpoints,
         withCredentials: true,
       });
       return {
