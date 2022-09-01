@@ -1,7 +1,18 @@
 import { Text, View, TouchableOpacity, StyleSheet } from "react-native";
 import Icon from "@expo/vector-icons/FontAwesome";
+import { useState, useEffect } from "react";
+import { client } from "../utils/client";
+import Lottie from "lottie-react-native";
 
-const Notice = ({navigation}) => {
+const Notice = ({ navigation }) => {
+  const [notices, setNotices] = useState([]);
+  useEffect(() => {
+    client("GET", "/push/notice").then(data => {
+      if (data.error) return;
+      setNotices(data.data);
+    });
+  }, []);
+
   return (
     <>
       <View style={styles.container}>
@@ -26,17 +37,56 @@ const Notice = ({navigation}) => {
                 ...styles.font,
               }}
             >
-              알림
+              공지
             </Text>
           </View>
-          <TouchableOpacity onPress={() => {
-            navigation.navigate("알림")
-          }}>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate("공지");
+            }}
+          >
             <Text style={styles.font}>더보기</Text>
           </TouchableOpacity>
         </View>
         <View style={styles.alertContainer}>
-          <Text style={{ fontSize: 15 }}>업데이트 예정</Text>
+          {notices ? (
+            <>
+              {notices.length === 0 ? (
+                <><Text style={{
+                  marginTop: "auto",
+                  marginBottom: "auto"
+                }}>등록된 공지가 없습니다</Text></>
+              ) : (
+                <>
+                  {notices.slice(0, 3).map(notice => (
+                    <TouchableOpacity
+                      key={notice._id}
+                      style={{
+                        backgroundColor: "#F0F3F4",
+                        width: "100%",
+                        padding: 12,
+                        borderRadius: 15,
+                        marginTop: 2,
+                        marginBottom: 2,
+                        display: "flex",
+                        justifyContent: "space-between",
+                        flexDirection: "row",
+                      }}
+                    >
+                      <Text>{notice.title}</Text>
+                      <Text>{notice.publisher.name}</Text>
+                    </TouchableOpacity>
+                  ))}
+                </>
+              )}
+            </>
+          ) : (
+            <Lottie
+              source={require("../assets/animation/loading.json")}
+              autoPlay
+              loop
+            />
+          )}
         </View>
       </View>
     </>
@@ -64,7 +114,8 @@ const styles = StyleSheet.create({
     minHeight: 100,
     display: "flex",
     alignItems: "center",
-    justifyContent: "center",
+    marginTop: 10,
+    paddingBottom: 20,
   },
 });
 

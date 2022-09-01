@@ -13,8 +13,7 @@ import { IconButton, Colors } from "react-native-paper";
 export default function Index({ navigation }) {
   return (
     <ScrollView
-      style={{ flex: 1 }}
-      contentContainerStyle={{ minHeight: "100%" }}
+      contentContainerStyle={{minHeight: "100%"}}
     >
       <View style={styles.container}>
         <Meals />
@@ -66,7 +65,7 @@ const styles = StyleSheet.create({
     width: "90%",
     height: 120,
     backgroundColor: "#6470F7",
-    borderRadius: 20,
+    borderRadius: 15,
     marginRight: 3,
   },
   text: {

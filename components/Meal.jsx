@@ -66,48 +66,57 @@ const Meals = () => {
   };
   return (
     <>
-      <View style={styles.selectDate}>
-        <IconButton
-          icon="arrow-left"
-          size={24}
-          onPress={() => onClickBackDate()}
-        />
-        <Text style={styles.dateText} onPress={showDatePicker}>
-          {dayjs(new Date(date)).format("MM월 DD일 급식")}
-        </Text>
-        <IconButton
-          icon="arrow-right"
-          size={24}
-          onPress={() => onClickNextDate()}
-        />
-      </View>
-      <DateTimePickerModal
-        isVisible={isDatePickerVisible}
-        mode="date"
-        locale="ko"
-        date={date}
-        onConfirm={handleConfirm}
-        onCancel={hideDatePicker}
-        textColor="black"
-        confirmTextIOS="선택"
-        cancelTextIOS="취소"
-      />
-      <View style={styles.mealList}>
-        {meal ? (
-          <>
-            {meal.map((meal, index) => (
-              <Text style={styles.meal} key={index}>
-                {meal}
-              </Text>
-            ))}
-          </>
-        ) : (
-          <Lottie
-            source={require("../assets/animation/food_loading.json")}
-            autoPlay
-            loop
+      <View style={{
+        display: "flex",
+        alignItems: "center",
+        marginLeft: "auto",
+        marginRight: "auto",
+        width: "100%",
+        height: 227
+      }}>
+        <View style={styles.selectDate}>
+          <IconButton
+            icon="arrow-left"
+            size={24}
+            onPress={() => onClickBackDate()}
           />
-        )}
+          <Text style={styles.dateText} onPress={showDatePicker}>
+            {dayjs(new Date(date)).format("MM월 DD일 급식")}
+          </Text>
+          <IconButton
+            icon="arrow-right"
+            size={24}
+            onPress={() => onClickNextDate()}
+          />
+        </View>
+        <DateTimePickerModal
+          isVisible={isDatePickerVisible}
+          mode="date"
+          locale="ko"
+          date={date}
+          onConfirm={handleConfirm}
+          onCancel={hideDatePicker}
+          textColor="black"
+          confirmTextIOS="선택"
+          cancelTextIOS="취소"
+        />
+        <View style={styles.mealList}>
+          {meal ? (
+            <>
+              {meal.map((meal, index) => (
+                <Text style={styles.meal} key={index}>
+                  {meal}
+                </Text>
+              ))}
+            </>
+          ) : (
+            <Lottie
+              source={require("../assets/animation/food_loading.json")}
+              autoPlay
+              loop
+            />
+          )}
+        </View>
       </View>
     </>
   );
@@ -126,7 +135,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     backgroundColor: "#F0F3F4",
     padding: 12,
-    borderRadius: 20,
+    borderRadius: 15,
   },
   meal: {
     fontSize: 16.5,
