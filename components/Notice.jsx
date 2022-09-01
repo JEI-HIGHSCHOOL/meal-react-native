@@ -1,5 +1,5 @@
 import { Text, View, TouchableOpacity, StyleSheet } from "react-native";
-import Icon from "react-native-vector-icons/FontAwesome";
+import Icon from "@expo/vector-icons/FontAwesome";
 
 const Notice = ({navigation}) => {
   return (

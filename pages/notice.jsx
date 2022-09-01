@@ -4,7 +4,6 @@ import { StyleSheet, View } from "react-native";
 export default function Notice({navigation}) {
   return (
     <View style={styles.container}>
-      
     </View>
   );
 }
