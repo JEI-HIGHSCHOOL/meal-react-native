@@ -3,16 +3,21 @@ import Icon from "@expo/vector-icons/FontAwesome";
 import { useState, useEffect } from "react";
 import { client } from "../utils/client";
 import Lottie from "lottie-react-native";
+import dayjs from "dayjs";
 
 const Notice = ({ navigation }) => {
-  const [notices, setNotices] = useState([]);
+  const [notices, setNotices] = useState();
   useEffect(() => {
     client("GET", "/push/notice").then(data => {
       if (data.error) return;
       setNotices(data.data);
     });
   }, []);
-
+  const goNoticePage = (data) => {
+    navigation.navigate('notice', {
+      ...data
+    })
+  }
   return (
     <>
       <View style={styles.container}>
@@ -37,12 +42,12 @@ const Notice = ({ navigation }) => {
                 ...styles.font,
               }}
             >
-              공지
+              등록된 알림
             </Text>
           </View>
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate("공지");
+              navigation.navigate("알림");
             }}
           >
             <Text style={styles.font}>더보기</Text>
@@ -65,16 +70,24 @@ const Notice = ({ navigation }) => {
                         backgroundColor: "#F0F3F4",
                         width: "100%",
                         padding: 12,
+                        paddingLeft: 15,
+                        paddingRight: 15,
                         borderRadius: 15,
                         marginTop: 2,
                         marginBottom: 2,
                         display: "flex",
                         justifyContent: "space-between",
-                        flexDirection: "row",
+                        flexDirection: "row"
+                      }}
+                      onPress={() => {
+                        goNoticePage(notice)
                       }}
                     >
-                      <Text>{notice.title}</Text>
-                      <Text>{notice.publisher.name}</Text>
+                      <Text style={{
+                        fontWeight: "600",
+                        maxWidth: "73%"
+                      }} numberOfLines={1}>{notice.title}</Text>
+                      <Text>{dayjs(notice.published_date).format('YYYY-MM-DD')}</Text>
                     </TouchableOpacity>
                   ))}
                 </>

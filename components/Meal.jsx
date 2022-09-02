@@ -72,7 +72,7 @@ const Meals = () => {
         marginLeft: "auto",
         marginRight: "auto",
         width: "100%",
-        height: 227
+        height: 225
       }}>
         <View style={styles.selectDate}>
           <IconButton

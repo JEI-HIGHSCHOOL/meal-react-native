@@ -7,6 +7,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import Ads from "./components/Ads";
 import Music from "./pages/music";
 import Notice from "./pages/notice";
+import NoticeList from "./pages/noticeList";
 import MusicSubmit from "./pages/musicsubmit";
 import { StatusBar } from "expo-status-bar";
 import { useEffect } from "react";
@@ -78,7 +79,16 @@ export default function App() {
             }}
           />
           <Stack.Screen
-            name="공지"
+            name="알림"
+            component={NoticeList}
+            options={{
+              headerTitle: () => <HeaderLogo />,
+              headerTintColor: "#000",
+              headerTitleAlign: "center",
+            }}
+          />
+          <Stack.Screen
+            name="notice"
             component={Notice}
             options={{
               headerTitle: () => <HeaderLogo />,
