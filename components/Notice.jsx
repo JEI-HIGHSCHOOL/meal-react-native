@@ -14,7 +14,7 @@ const Notice = ({ navigation }) => {
     });
   }, []);
   const goNoticePage = (data) => {
-    navigation.navigate('notice', {
+    navigation.navigate('alert', {
       ...data
     })
   }
@@ -42,12 +42,12 @@ const Notice = ({ navigation }) => {
                 ...styles.font,
               }}
             >
-              등록된 알림
+              알림
             </Text>
           </View>
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate("알림");
+              navigation.navigate("alerts");
             }}
           >
             <Text style={styles.font}>더보기</Text>

@@ -35,8 +35,11 @@ export default function Music({ navigation }) {
         navigation.reset({
           routes: [
             {
+              name: "home"
+            },
+            {
               name: "musicsubmit",
-              params: { count: res.data }, // 보낼 데이터가 있다면
+              params: { count: res.data }, 
             },
           ],
         });
@@ -80,6 +83,7 @@ export default function Music({ navigation }) {
           disabled={isDisable}
           style={{
             marginTop: 12,
+            marginBottom: 7,
             borderRadius: 5,
             height: 45,
             width: "90%",

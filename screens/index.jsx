@@ -5,6 +5,7 @@ import {
   Text,
   ScrollView,
 } from "react-native";
+import { Link } from "@react-navigation/native";
 import Meals from "../components/Meal";
 import Info from "../components/Info";
 import Notice from "../components/Notice";
@@ -12,16 +13,14 @@ import { IconButton, Colors } from "react-native-paper";
 
 export default function Index({ navigation }) {
   return (
-    <ScrollView
-      contentContainerStyle={{minHeight: "100%"}}
-    >
+    <ScrollView contentContainerStyle={{ minHeight: "100%" }}>
       <View style={styles.container}>
         <Meals />
         <Info />
         <TouchableOpacity
           style={styles.music}
           onPress={() => {
-            navigation.navigate("노래");
+            navigation.navigate("Music");
           }}
         >
           <Text style={styles.text}>노래 신청하기</Text>

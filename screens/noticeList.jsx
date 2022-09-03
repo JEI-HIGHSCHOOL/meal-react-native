@@ -14,7 +14,7 @@ export default function Notice({ navigation }) {
     });
   }, []);
   const goNoticePage = (data) => {
-    navigation.navigate("notice", {
+    navigation.navigate("alert", {
       ...data,
     });
   };
@@ -49,19 +49,16 @@ export default function Notice({ navigation }) {
           width: "90%",
           display: "flex",
           flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center"
         }}
       >
         {notices ? (
           <>
             {notices.length === 0 ? (
               <>
-                <Text
-                  style={{
-                    marginTop: "auto",
-                    marginBottom: "auto",
-                  }}
-                >
-                  등록된 공지가 없습니다
+                <Text>
+                  등록된 알림이 없습니다
                 </Text>
               </>
             ) : (

@@ -7,19 +7,24 @@ export default function MusicSubmit({ navigation, route }) {
   const { count } = route.params;
 
   useEffect(() => {
-    setInterval(() => {
+    const countingInterval = setInterval(() => {
       setTime(time => time - 1);
     }, 1000);
 
-    setTimeout(() => {
+    const resetPage = setTimeout(() => {
       navigation.reset({
         routes: [
           {
-            name: "홈",
+            name: "home",
           },
         ],
       });
     }, 5000);
+
+    return () => {
+      clearInterval(countingInterval)
+      clearTimeout(resetPage)
+    }
   }, []);
 
   return (
