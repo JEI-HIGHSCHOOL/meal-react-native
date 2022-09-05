@@ -7,10 +7,12 @@ import {
   Linking,
   ScrollView,
 } from "react-native";
+import { LinearGradient } from "expo-linear-gradient";
 import { IconButton, Colors } from "react-native-paper";
+
 const Info = () => {
   const openHomepage = () => {
-    Linking.canOpenURL("http://jn.icehs.kr/main.do").then((supported) => {
+    Linking.canOpenURL("http://jn.icehs.kr/main.do").then(supported => {
       if (supported) {
         Linking.openURL("http://jn.icehs.kr/main.do");
       } else {
@@ -20,7 +22,7 @@ const Info = () => {
   };
   const openFacebook = () => {
     const url = "https://www.facebook.com/JEI.HIGHSCHOOL";
-    Linking.canOpenURL(url).then((supported) => {
+    Linking.canOpenURL(url).then(supported => {
       if (supported) {
         Linking.openURL(url);
       } else {
@@ -30,7 +32,7 @@ const Info = () => {
   };
   const openYoutube = () => {
     const url = "https://www.youtube.com/channel/UCO6JX_J5uQ0lTIO2d19-9ZA";
-    Linking.canOpenURL(url).then((supported) => {
+    Linking.canOpenURL(url).then(supported => {
       if (supported) {
         Linking.openURL(url);
       } else {
@@ -41,7 +43,18 @@ const Info = () => {
 
   const openInstargram = () => {
     const url = "https://www.instagram.com/jn_highschool";
-    Linking.canOpenURL(url).then((supported) => {
+    Linking.canOpenURL(url).then(supported => {
+      if (supported) {
+        Linking.openURL(url);
+      } else {
+        console.log("Don't know how to open URI: " + url);
+      }
+    });
+  };
+
+  const openKakao = () => {
+    const url = "http://pf.kakao.com/_IxiccC";
+    Linking.canOpenURL(url).then(supported => {
       if (supported) {
         Linking.openURL(url);
       } else {
@@ -54,8 +67,9 @@ const Info = () => {
     <>
       <ScrollView
         style={{
-          width: "90%",
-          overflow: "visible",
+          width: "100%",
+          overflow: "scroll",
+          
         }}
         horizontal={true}
         showsHorizontalScrollIndicator={false}
@@ -115,10 +129,17 @@ const Info = () => {
           <TouchableOpacity
             style={styles.kakaotalk}
             onPress={() => {
-              openInstargram();
+              openKakao();
             }}
           >
-            <Text style={styles.text}>카카오톡</Text>
+            <Text
+              style={{
+                ...styles.text,
+                color: "#3A1D1D",
+              }}
+            >
+              카카오톡
+            </Text>
             <IconButton
               style={{
                 marginLeft: "auto",
@@ -129,23 +150,38 @@ const Info = () => {
               color={"#3A1D1D"}
             />
           </TouchableOpacity>
-          <TouchableOpacity
+          <LinearGradient
+            start={{ x: 0, y: 0.9 }}
+            end={{ x: 0.5, y: 0 }}
+            colors={[
+              "#833AB4",
+              "#C13584",
+              "#E1306C",
+              "#FD1D1D",
+              "#F56040",
+              "#F77737",
+              "#FCAF45",
+            ]}
             style={styles.instargram}
-            onPress={() => {
-              openInstargram();
-            }}
           >
-            <Text style={styles.text}>인스타그램</Text>
-            <IconButton
-              style={{
-                marginLeft: "auto",
-                marginTop: "auto",
+            <TouchableOpacity
+              style={styles.instargram}
+              onPress={() => {
+                openInstargram();
               }}
-              icon="instagram"
-              size={32}
-              color={Colors.white}
-            />
-          </TouchableOpacity>
+            >
+              <Text style={styles.text}>인스타그램</Text>
+              <IconButton
+                style={{
+                  marginLeft: "auto",
+                  marginTop: "auto",
+                }}
+                icon="instagram"
+                size={32}
+                color={Colors.white}
+              />
+            </TouchableOpacity>
+          </LinearGradient>
         </View>
       </ScrollView>
     </>
@@ -157,47 +193,48 @@ const styles = StyleSheet.create({
     width: "90%",
     display: "flex",
     flexDirection: "row",
-    marginTop: 15,
+    marginTop: 20,
+    marginLeft: 20,
+    marginRight: 20
   },
   homepage: {
-    width: 110,
+    width: 120,
     height: 120,
     backgroundColor: "#F05D1A",
     borderRadius: 15,
-    marginRight: 7,
+    marginRight: 13,
   },
   facebook: {
-    width: 110,
+    width: 120,
     height: 120,
     backgroundColor: "#4267B2",
     borderRadius: 15,
-    marginRight: 7,
+    marginRight: 13,
   },
   youtube: {
-    width: 110,
+    width: 120,
     height: 120,
     backgroundColor: "#FF0000",
     borderRadius: 15,
-    marginRight: 7,
+    marginRight: 13,
   },
   kakaotalk: {
-    width: 110,
+    width: 120,
     height: 120,
-    backgroundColor: "#F7E600",
+    backgroundColor: "#fef01b",
     borderRadius: 15,
-    marginRight: 7
+    marginRight: 13,
   },
   instargram: {
-    width: 110,
+    width: 120,
     height: 120,
-    backgroundColor: "#282828",
-    borderRadius: 15,
+    borderRadius: 10,
   },
   text: {
     color: "white",
     marginLeft: 15,
     fontSize: 17,
-    marginTop: 18,
+    marginTop: 15,
     fontWeight: "900",
   },
 });

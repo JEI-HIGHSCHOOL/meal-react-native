@@ -110,7 +110,7 @@ const Notice = ({ navigation, setRefreshing, refresh }) => {
 const styles = StyleSheet.create({
   container: {
     maxWidth: "90%",
-    marginTop: 20,
+    marginTop: 1,
   },
   font: {
     fontSize: 16,

@@ -10,7 +10,7 @@ import { useState, useCallback } from "react";
 import Meals from "../components/Meal";
 import Info from "../components/Info";
 import Notice from "../components/Notice";
-import { IconButton, Colors } from "react-native-paper";
+import Banner from "../components/Banner";
 
 export default function Index({ navigation }) {
   const [refreshing, setRefreshing] = useState(false);
@@ -27,26 +27,7 @@ export default function Index({ navigation }) {
       <View style={styles.container}>
         <Meals />
         <Info />
-        <TouchableOpacity
-          style={styles.music}
-          onPress={() => {
-            navigation.navigate("Music");
-          }}
-        >
-          <Text style={styles.text}>노래 신청하기</Text>
-          <Text style={styles.description}>
-            점심시간에 듣고싶은 노래가 있나요?
-          </Text>
-          <IconButton
-            style={{
-              marginLeft: "auto",
-              marginTop: "auto",
-            }}
-            icon="music"
-            size={32}
-            color={Colors.white}
-          />
-        </TouchableOpacity>
+        <Banner navigation={navigation}/>
         <Notice navigation={navigation} refresh={refreshing} setRefreshing={setRefreshing} />
       </View>
     </ScrollView>
@@ -61,34 +42,5 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     width: "100%",
-  },
-  bottomBanner: {
-    position: "absolute",
-    bottom: 0,
-  },
-  music: {
-    marginTop: 15,
-    height: "20%",
-    display: "flex",
-    alignItems: "flex-start",
-    width: "90%",
-    height: 120,
-    backgroundColor: "#6470F7",
-    borderRadius: 15,
-    marginRight: 3,
-  },
-  text: {
-    color: "white",
-    fontSize: 17,
-    marginTop: 18,
-    fontWeight: "900",
-    marginLeft: 17,
-  },
-  description: {
-    color: "white",
-    fontSize: 15,
-    marginTop: 2,
-    fontWeight: "500",
-    marginLeft: 17,
-  },
+  }
 });
