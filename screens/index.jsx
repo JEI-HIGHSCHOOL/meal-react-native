@@ -4,16 +4,26 @@ import {
   TouchableOpacity,
   Text,
   ScrollView,
+  RefreshControl
 } from "react-native";
-import { Link } from "@react-navigation/native";
+import { useState, useCallback } from "react";
 import Meals from "../components/Meal";
 import Info from "../components/Info";
 import Notice from "../components/Notice";
 import { IconButton, Colors } from "react-native-paper";
 
 export default function Index({ navigation }) {
+  const [refreshing, setRefreshing] = useState(false);
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+  }, []);
   return (
-    <ScrollView contentContainerStyle={{ minHeight: "100%" }}>
+    <ScrollView
+      contentContainerStyle={{ minHeight: "100%" }}
+      refreshControl={
+        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+      }
+    >
       <View style={styles.container}>
         <Meals />
         <Info />
@@ -37,7 +47,7 @@ export default function Index({ navigation }) {
             color={Colors.white}
           />
         </TouchableOpacity>
-        <Notice navigation={navigation} />
+        <Notice navigation={navigation} refresh={refreshing} setRefreshing={setRefreshing} />
       </View>
     </ScrollView>
   );

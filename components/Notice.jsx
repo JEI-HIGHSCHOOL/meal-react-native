@@ -5,14 +5,15 @@ import { client } from "../utils/client";
 import Lottie from "lottie-react-native";
 import dayjs from "dayjs";
 
-const Notice = ({ navigation }) => {
+const Notice = ({ navigation, setRefreshing, refresh }) => {
   const [notices, setNotices] = useState();
   useEffect(() => {
     client("GET", "/push/notice").then(data => {
+      setRefreshing(false)
       if (data.error) return;
       setNotices(data.data);
     });
-  }, []);
+  }, [refresh]);
   const goNoticePage = (data) => {
     navigation.navigate('alert', {
       ...data
