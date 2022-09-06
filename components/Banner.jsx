@@ -38,7 +38,7 @@ const Banner = ({ navigation }) => {
           height: "20%",
           display: "flex",
           justifyContent: "center",
-          marginTop: 15,
+          marginTop: 12,
           maxWidth: "100%",
           minWidth: "100%",
           overflow: "visible",
@@ -172,7 +172,7 @@ const styles = StyleSheet.create({
   description: {
     color: "white",
     fontSize: 15,
-    marginTop: 2,
+    marginTop: 3,
     fontWeight: "500",
     marginLeft: 17,
   },

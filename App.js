@@ -55,7 +55,7 @@ export default function App() {
     initialRouteName: "home",
     config: {
       screens: {
-        home: "home",
+        Home: "home",
         alert: "notice/:noticeId",
       },
     },
@@ -113,13 +113,12 @@ export default function App() {
         }}
       >
         <StatusBar style="dark" />
-        <Stack.Navigator initialRouteName="home">
+        <Stack.Navigator initialRouteName="홈">
           <Stack.Screen
-            name="home"
+            name="Home"
             component={Index}
             options={{
               headerTitle: () => <HeaderLogo />,
-              headerTintColor: "#000",
               headerTitleAlign: "center",
             }}
           />
@@ -128,7 +127,6 @@ export default function App() {
             component={Music}
             options={{
               headerTitle: () => <HeaderLogo />,
-              headerTintColor: "#000",
               headerTitleAlign: "center",
             }}
           />
@@ -137,7 +135,6 @@ export default function App() {
             component={NoticeList}
             options={{
               headerTitle: () => <HeaderLogo />,
-              headerTintColor: "#000",
               headerTitleAlign: "center",
             }}
           />
@@ -146,7 +143,6 @@ export default function App() {
             component={Notice}
             options={{
               headerTitle: () => <HeaderLogo />,
-              headerTintColor: "#000",
               headerTitleAlign: "center",
             }}
           />
@@ -155,7 +151,6 @@ export default function App() {
             component={MusicSubmit}
             options={{
               headerTitle: () => <HeaderLogo />,
-              headerTintColor: "#000",
               headerTitleAlign: "center",
             }}
           />

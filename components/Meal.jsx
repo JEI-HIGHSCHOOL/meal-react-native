@@ -72,7 +72,8 @@ const Meals = () => {
         marginLeft: "auto",
         marginRight: "auto",
         width: "100%",
-        height: 220
+        height: 175,
+        marginBottom: 40
       }}>
         <View style={styles.selectDate}>
           <IconButton
@@ -129,7 +130,7 @@ const styles = StyleSheet.create({
   mealList: {
     width: "90%",
     display: "flex",
-    minHeight: "25%",
+    height: "100%",
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",

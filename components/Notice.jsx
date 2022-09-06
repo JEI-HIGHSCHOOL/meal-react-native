@@ -111,6 +111,7 @@ const styles = StyleSheet.create({
   container: {
     maxWidth: "90%",
     marginTop: 1,
+    height: 180
   },
   font: {
     fontSize: 16,
