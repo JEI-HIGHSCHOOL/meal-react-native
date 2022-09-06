@@ -76,7 +76,7 @@ const Info = () => {
         <View style={styles.container}>
           <LinearGradient
             start={{ x: 0, y: 0.9 }}
-            end={{ x: 0.5, y: 0 }}
+            end={{ x: 0.9, y: 0 }}
             colors={[
               "#833AB4",
               "#C13584",
