@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { Text, StyleSheet, View } from "react-native";
 
 export default function MusicSubmit({ navigation, route }) {
-  const [time, setTime] = useState(5);
+  const [time, setTime] = useState(7);
   const { count } = route.params;
 
   useEffect(() => {
@@ -19,7 +19,7 @@ export default function MusicSubmit({ navigation, route }) {
           },
         ],
       });
-    }, 5000);
+    }, 7000);
 
     return () => {
       clearInterval(countingInterval)
@@ -32,6 +32,8 @@ export default function MusicSubmit({ navigation, route }) {
       <Lottie
         source={require("../assets/animation/submitmusic.json")}
         autoPlay
+        loop={false}
+        speed={1.2}
         style={{
           width: 150,
           height: 150,

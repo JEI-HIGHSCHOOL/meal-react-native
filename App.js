@@ -55,7 +55,7 @@ export default function App() {
     initialRouteName: "home",
     config: {
       screens: {
-        Home: "home",
+        home: "home",
         alert: "notice/:noticeId",
       },
     },
@@ -115,7 +115,7 @@ export default function App() {
         <StatusBar style="dark" />
         <Stack.Navigator initialRouteName="홈">
           <Stack.Screen
-            name="Home"
+            name="home"
             component={Index}
             options={{
               headerTitle: () => <HeaderLogo />,
