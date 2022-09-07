@@ -51,12 +51,13 @@ export default function App() {
   };
 
   const linking = {
-    prefixes: [prefix],
+    prefixes: [prefix, "jhschool://"],
     initialRouteName: "home",
     config: {
       screens: {
         home: "home",
         alert: "notice/:noticeId",
+        Music: "music"
       },
     },
     async getInitialURL() {
@@ -113,7 +114,7 @@ export default function App() {
         }}
       >
         <StatusBar style="dark" />
-        <Stack.Navigator initialRouteName="홈">
+        <Stack.Navigator initialRouteName="home">
           <Stack.Screen
             name="home"
             component={Index}
@@ -166,7 +167,8 @@ function HeaderLogo() {
     <Image
       source={require("./assets/page_logo.png")}
       style={{
-        marginTop: 4,
+        width: 200,
+        height: 24
       }}
     />
   );

@@ -11,18 +11,28 @@ import { IconButton, Colors } from "react-native-paper";
 import React, { useState, useEffect } from "react";
 import Swiper from "react-native-swiper";
 import { client } from "../utils/client";
+import { checkUrlForm } from "../utils/utils";
 
 const Banner = ({ navigation }) => {
   const [banner, setBanner] = useState();
   useEffect(() => {
-    client("GET", "/banners").then(res => {
+    client("GET", "/banners").then((res) => {
       if (res.error) return;
-      setBanner(res.data);
+      setBanner([
+        {
+          title: "노래 신청하기",
+          description: "점심시간에 듣고싶은 노래가 있나요?",
+          icon: "music",
+          color: "#6470F7",
+          url: "Music",
+        },
+        ...res.data,
+      ]);
     });
   }, []);
 
-  const openURL = url => {
-    Linking.canOpenURL(url).then(supported => {
+  const openURL = (url) => {
+    Linking.canOpenURL(url).then((supported) => {
       if (supported) {
         Linking.openURL(url);
       } else {
@@ -81,70 +91,46 @@ const Banner = ({ navigation }) => {
             </TouchableOpacity>
           </Swiper>
         ) : (
-          <>
-            <Swiper
-              autoplayTimeout={10}
-              loop={true}
-              autoplay
-              showsPagination
-              bounces={true}
-              height={"100%"}
-              dotStyle={styles.NonActiveDot}
-              activeDotStyle={styles.activeDot}
-            >
+          <Swiper
+            autoplayTimeout={10}
+            loop={true}
+            autoplay
+            showsPagination
+            bounces={true}
+            height={"100%"}
+            dotStyle={styles.NonActiveDot}
+            activeDotStyle={styles.activeDot}
+          >
+            {banner.map((banner, index) => (
               <TouchableOpacity
                 activeOpacity={1}
+                key={index}
                 style={{
                   ...styles.swiper,
-                  backgroundColor: "#6470F7",
+                  backgroundColor: banner.color,
                 }}
                 onPress={() => {
-                  navigation.navigate("Music");
+                  if(checkUrlForm(banner.url)) {
+                    openURL(banner.url);
+                  } else {
+                    navigation.navigate(banner.url);
+                  };
                 }}
               >
-                <Text style={styles.text}>노래 신청하기</Text>
-                <Text style={styles.description}>
-                  점심시간에 듣고싶은 노래가 있나요?
-                </Text>
+                <Text style={styles.text}>{banner.title}</Text>
+                <Text style={styles.description}>{banner.description}</Text>
                 <IconButton
                   style={{
                     marginLeft: "auto",
                     marginTop: "auto",
                   }}
-                  icon="music"
+                  icon={banner.icon}
                   size={32}
                   color={Colors.white}
                 />
               </TouchableOpacity>
-              {banner.map((banner, index) => {
-                return (
-                  <TouchableOpacity
-                    activeOpacity={1}
-                    key={index}
-                    style={{
-                      ...styles.swiper,
-                      backgroundColor: banner.color,
-                    }}
-                    onPress={() => {
-                      openURL(banner.url);
-                    }}
-                  >
-                    <Text style={styles.text}>{banner.title}</Text>
-                    <Text style={styles.description}>{banner.description}</Text>
-                    <IconButton
-                      style={{
-                        marginLeft: "auto",
-                        marginTop: "auto",
-                      }}
-                      icon={banner.icon}
-                      size={32}
-                      color={Colors.white}
-                    />
-                  </TouchableOpacity>
-                );
-              })}
-            </Swiper>
-          </>
+            ))}
+          </Swiper>
         )}
       </View>
     </>
