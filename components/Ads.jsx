@@ -1,9 +1,5 @@
 import {
-  AdMobBanner,
-  AdMobInterstitial,
-  PublisherBanner,
-  AdMobRewarded,
-  setTestDeviceIDAsync,
+  AdMobBanner
 } from "expo-ads-admob";
 import { Platform } from "react-native";
 

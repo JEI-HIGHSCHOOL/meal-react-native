@@ -35,9 +35,6 @@ export default function Music({ navigation }) {
         navigation.reset({
           routes: [
             {
-              name: "home"
-            },
-            {
               name: "musicsubmit",
               params: { count: res.data }, 
             },

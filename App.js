@@ -1,21 +1,28 @@
 import { Image, Alert } from "react-native";
-import * as Notifications from "expo-notifications";
-import Index from "./screens/index";
-import "react-native-gesture-handler";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
+import { StatusBar } from "expo-status-bar";
+import { useEffect } from "react";
+import { createDrawerNavigator } from "@react-navigation/drawer";
+
+import * as Linking from "expo-linking";
+import * as SplashScreen from "expo-splash-screen";
+import * as SecureStore from "expo-secure-store";
+import * as Notifications from "expo-notifications";
+
 import Ads from "./components/Ads";
+import CustomSidebarMenu from "./components/CustomSidebarMenu";
+
+import Index from "./screens/index";
 import Music from "./screens/music";
 import Notice from "./screens/notice";
 import NoticeList from "./screens/noticeList";
 import MusicSubmit from "./screens/musicsubmit";
-import { StatusBar } from "expo-status-bar";
-import { useEffect, useState } from "react";
-import * as SecureStore from "expo-secure-store";
+
 import { getDevice, registerForPushNotificationsAsync } from "./utils/device";
 import { client } from "./utils/client";
-import * as Linking from "expo-linking";
-import * as SplashScreen from 'expo-splash-screen';
+
+import "react-native-gesture-handler";
 
 SplashScreen.preventAutoHideAsync();
 Notifications.setNotificationHandler({
@@ -27,12 +34,13 @@ Notifications.setNotificationHandler({
 });
 
 const Stack = createStackNavigator();
+const Drawer = createDrawerNavigator();
 const prefix = Linking.createURL("/");
 
 export default function App() {
   const registerNotification = async () => {
     registerForPushNotificationsAsync()
-      .then(async pushToken => {
+      .then(async (pushToken) => {
         if (pushToken) {
           await SecureStore.setItemAsync("push_token", pushToken);
           const deviceId = await getDevice();
@@ -45,7 +53,7 @@ export default function App() {
 
         Alert.alert("경고", "알림 설정이 꺼저있습니다. 알림설정을 켜주세요!");
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
   };
@@ -57,7 +65,7 @@ export default function App() {
       screens: {
         home: "home",
         alert: "notice/:noticeId",
-        Music: "music"
+        Music: "music",
       },
     },
     async getInitialURL() {
@@ -80,11 +88,11 @@ export default function App() {
       // Listen to expo push notifications
       const subscription =
         Notifications.addNotificationResponseReceivedListener(
-          async response => {
+          async (response) => {
             const url = response.notification.request.content.data.url;
             await Linking.openURL(prefix + "home"); // 우선 최초화면으로 먼저 이동합니다. 이렇게 하지 않으면, 변수만 다른(:roomId) 동일한 화면이(ChatRoom) 이미 열려있던 경우, deep link로 인한 화면이동이 발생하지 않습니다.
             await Linking.openURL(prefix + url);
-            closeSplash()
+            closeSplash();
           }
         );
 
@@ -95,14 +103,14 @@ export default function App() {
     },
   };
 
-  const closeSplash = async() => {
-    await SplashScreen.hideAsync()
-  }
+  const closeSplash = async () => {
+    await SplashScreen.hideAsync();
+  };
   useEffect(() => {
     registerNotification();
-    closeSplash()
+    closeSplash();
   }, []);
-  
+
   return (
     <>
       <NavigationContainer
@@ -114,48 +122,60 @@ export default function App() {
         }}
       >
         <StatusBar style="dark" />
-        <Stack.Navigator initialRouteName="home">
-          <Stack.Screen
+        <Drawer.Navigator
+          drawerContent={(props) => (
+            <CustomSidebarMenu navigation={props.navigation} />
+          )}
+          
+          initialRouteName="home"
+          mode="modal"
+        >
+          <Drawer.Screen
             name="home"
             component={Index}
             options={{
               headerTitle: () => <HeaderLogo />,
               headerTitleAlign: "center",
+              headerTintColor: "#000",
             }}
           />
-          <Stack.Screen
+          <Drawer.Screen
             name="Music"
             component={Music}
             options={{
               headerTitle: () => <HeaderLogo />,
               headerTitleAlign: "center",
+              headerTintColor: "#000",
             }}
           />
-          <Stack.Screen
+          <Drawer.Screen
             name="alerts"
             component={NoticeList}
             options={{
               headerTitle: () => <HeaderLogo />,
               headerTitleAlign: "center",
+              headerTintColor: "#000",
             }}
           />
-          <Stack.Screen
+          <Drawer.Screen
             name="alert"
             component={Notice}
             options={{
               headerTitle: () => <HeaderLogo />,
               headerTitleAlign: "center",
+              headerTintColor: "#000",
             }}
           />
-          <Stack.Screen
+          <Drawer.Screen
             name="musicsubmit"
             component={MusicSubmit}
             options={{
               headerTitle: () => <HeaderLogo />,
               headerTitleAlign: "center",
+              headerTintColor: "#000",
             }}
           />
-        </Stack.Navigator>
+        </Drawer.Navigator>
         <Ads />
       </NavigationContainer>
     </>
@@ -168,7 +188,7 @@ function HeaderLogo() {
       source={require("./assets/page_logo.png")}
       style={{
         width: 200,
-        height: 24
+        height: 24,
       }}
     />
   );
