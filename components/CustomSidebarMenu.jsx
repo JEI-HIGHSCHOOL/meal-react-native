@@ -10,7 +10,7 @@ import {
 import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 
 const navList = [
-  { title: "홈", link: "home", icon: "home" },
+  { title: "홈", link: "index", icon: "home" },
   { title: "알림", link: "alerts", icon: "bell" },
   { title: "노래 신청하기", link: "Music", icon: "music" },
 ];

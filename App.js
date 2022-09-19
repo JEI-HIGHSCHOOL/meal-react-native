@@ -122,60 +122,88 @@ export default function App() {
         }}
       >
         <StatusBar style="dark" />
-        <Drawer.Navigator
-          drawerContent={(props) => (
-            <CustomSidebarMenu navigation={props.navigation} />
-          )}
-          
-          initialRouteName="home"
-          mode="modal"
-        >
-          <Drawer.Screen
+        <Stack.Navigator initialRouteName="home">
+          <Stack.Screen
             name="home"
-            component={Index}
+            component={() => (
+              <Drawer.Navigator
+                drawerContent={(props) => (
+                  <CustomSidebarMenu navigation={props.navigation} />
+                )}
+                mode="modal"
+              >
+                <Drawer.Screen
+                  options={{
+                    headerTitle: () => <HeaderLogo />,
+                    headerTitleAlign: "center",
+                    headerTintColor: "#000",
+                    headerBackgroundContainerStyle: {
+                      backgroundColor: "white",
+                    },
+                    headerLeftLabelVisible: false,
+                  }}
+                  name="index"
+                  component={Index}
+                />
+              </Drawer.Navigator>
+            )}
             options={{
-              headerTitle: () => <HeaderLogo />,
-              headerTitleAlign: "center",
-              headerTintColor: "#000",
+              headerShown: false,
             }}
           />
           <Drawer.Screen
             name="Music"
             component={Music}
             options={{
-              headerTitle: () => <HeaderLogo />,
+              headerTitle: "노래신청",
               headerTitleAlign: "center",
               headerTintColor: "#000",
+              headerBackgroundContainerStyle: {
+                backgroundColor: "white",
+              },
+              headerLeftLabelVisible: false,
             }}
           />
           <Drawer.Screen
             name="alerts"
             component={NoticeList}
             options={{
-              headerTitle: () => <HeaderLogo />,
+              headerTitle: "알림목록",
               headerTitleAlign: "center",
               headerTintColor: "#000",
+              headerBackgroundContainerStyle: {
+                backgroundColor: "white",
+              },
+              headerLeftLabelVisible: false,
             }}
           />
           <Drawer.Screen
             name="alert"
             component={Notice}
             options={{
-              headerTitle: () => <HeaderLogo />,
+              headerTitle: "알림",
               headerTitleAlign: "center",
               headerTintColor: "#000",
+              headerBackgroundContainerStyle: {
+                backgroundColor: "white",
+              },
+              headerLeftLabelVisible: false,
             }}
           />
           <Drawer.Screen
             name="musicsubmit"
             component={MusicSubmit}
             options={{
-              headerTitle: () => <HeaderLogo />,
+              headerTitle: "노래신청",
               headerTitleAlign: "center",
               headerTintColor: "#000",
+              headerBackgroundContainerStyle: {
+                backgroundColor: "white",
+              },
+              headerLeftLabelVisible: false,
             }}
           />
-        </Drawer.Navigator>
+        </Stack.Navigator>
         <Ads />
       </NavigationContainer>
     </>
