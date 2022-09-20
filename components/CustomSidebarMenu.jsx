@@ -7,6 +7,7 @@ import {
   Alert,
   Image,
 } from "react-native";
+import { RewordAds } from "./Ads"
 import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 
 const navList = [
@@ -21,7 +22,7 @@ const CustomSidebarMenu = ({ navigation }) => {
         borderTopRightRadius: 50,
         borderBottomRightRadius: 50,
         backgroundColor: "#fff",
-        flex: 1,
+        flex: 1
       }}
     >
       <View
@@ -71,7 +72,7 @@ const CustomSidebarMenu = ({ navigation }) => {
                 navigation.navigate(data.link);
               }}
             >
-              <Icon name={data.icon} size={18}/>
+              <Icon name={data.icon} size={18} />
               <Text
                 style={{
                   marginLeft: 12,
@@ -85,6 +86,32 @@ const CustomSidebarMenu = ({ navigation }) => {
             </TouchableOpacity>
           </View>
         ))}
+        <View style={{marginTop: "auto"}}>
+          <TouchableOpacity
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              paddingVertical: 5,
+              paddingTop: 27,
+              paddingLeft: 30,
+            }}
+            onPress={() => {
+              RewordAds()
+            }}
+          >
+            <Icon name="advertisements" size={18} />
+            <Text
+              style={{
+                marginLeft: 12,
+                color: "#272727",
+                fontSize: 16,
+                lineHeight: 19,
+              }}
+            >
+              앱 유지비 (광고)
+            </Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </View>
   );

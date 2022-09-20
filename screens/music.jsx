@@ -15,16 +15,16 @@ import { getDevice } from "../utils/device";
 export default function Music({ navigation }) {
   const [song, setSong] = useState();
   const [isDisable, setIsDisable] = useState(false);
-  
+
   const addSong = async () => {
-    setIsDisable(true)
+    setIsDisable(true);
     const deviceId = await getDevice();
     client("POST", "/music/add", {
       deviceId,
-      song: song || song !== "" ? song : undefined ,
-    }).then(res => {
+      song: song || song !== "" ? song : undefined,
+    }).then((res) => {
       if (res.error) {
-        setIsDisable(false)
+        setIsDisable(false);
         Alert.alert("오류", res.message, [
           {
             text: "확인",
@@ -35,11 +35,11 @@ export default function Music({ navigation }) {
         navigation.reset({
           routes: [
             {
-              name: "home"
+              name: "home",
             },
             {
               name: "musicsubmit",
-              params: { count: res.data }, 
+              params: { count: res.data },
             },
           ],
         });
@@ -67,7 +67,8 @@ export default function Music({ navigation }) {
             - 불건전하거나 혼란을 야기 할 수 있는 노래는 신청을 금지합니다
           </Text>
           <Text style={pageStyles.alertText}>
-            - 노래 신청 외 건의사항은 학과/학년/이름 함께 기재 바랍니다. (인터넷 예절을 지켜주세요)
+            - 노래 신청 외 건의사항은 학과/학년/이름 함께 기재 바랍니다. (인터넷
+            예절을 지켜주세요)
           </Text>
         </View>
         <TextInput
@@ -76,7 +77,8 @@ export default function Music({ navigation }) {
           autoFocus
           style={{
             marginTop: 12,
-            ...styles.input,
+            height: 45,
+            width: "90%",
           }}
           onChangeText={setSong}
           placeholder="건의사항은 학과 / 학년 / 이름 함께 기재 바랍니다"
