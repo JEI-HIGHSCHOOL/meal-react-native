@@ -12,6 +12,7 @@ import React, { useState, useEffect } from "react";
 import Swiper from "react-native-swiper";
 import { client } from "../utils/client";
 import { checkUrlForm } from "../utils/utils";
+import { APP_URL } from "../config.json"
 
 const Banner = ({ navigation }) => {
   const [banner, setBanner] = useState();
@@ -25,6 +26,17 @@ const Banner = ({ navigation }) => {
           icon: "music",
           color: "#6470F7",
           url: "Music",
+        },
+        {
+          title: "실시간 셔틀버스",
+          description: "현재 셔틀버스의 위치를 확인하세요",
+          icon: "bus",
+          color: "#6397f2",
+          url: "Webview",
+          params: {
+            url: APP_URL + "/busmap",
+            title: "셔틀버스",
+          }
         },
         ...res.data,
       ]);
@@ -113,7 +125,7 @@ const Banner = ({ navigation }) => {
                   if(checkUrlForm(banner.url)) {
                     openURL(banner.url);
                   } else {
-                    navigation.navigate(banner.url);
+                    navigation.navigate(banner.url, banner.params);
                   };
                 }}
               >

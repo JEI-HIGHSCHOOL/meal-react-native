@@ -18,6 +18,7 @@ import Music from "./screens/music";
 import Notice from "./screens/notice";
 import NoticeList from "./screens/noticeList";
 import MusicSubmit from "./screens/musicsubmit";
+import Browser from "./screens/webview";
 
 import { getDevice, registerForPushNotificationsAsync } from "./utils/device";
 import { client } from "./utils/client";
@@ -149,6 +150,19 @@ export default function App() {
             )}
             options={{
               headerShown: false,
+            }}
+          />
+          <Drawer.Screen
+            name="Webview"
+            component={Browser}
+            options={{
+              headerTitle: "브라우저",
+              headerTitleAlign: "center",
+              headerTintColor: "#000",
+              headerBackgroundContainerStyle: {
+                backgroundColor: "white",
+              },
+              headerLeftLabelVisible: false,
             }}
           />
           <Drawer.Screen
