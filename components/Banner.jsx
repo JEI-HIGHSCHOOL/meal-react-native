@@ -12,7 +12,7 @@ import React, { useState, useEffect } from "react";
 import Swiper from "react-native-swiper";
 import { client } from "../utils/client";
 import { checkUrlForm } from "../utils/utils";
-import { APP_URL } from "../config.json"
+import { WEB_URL } from "../config.json"
 
 const Banner = ({ navigation }) => {
   const [banner, setBanner] = useState();
@@ -34,7 +34,7 @@ const Banner = ({ navigation }) => {
           color: "#6397f2",
           url: "Webview",
           params: {
-            url: APP_URL + "/busmap",
+            url: WEB_URL + "/busmap",
             title: "셔틀버스",
           }
         },

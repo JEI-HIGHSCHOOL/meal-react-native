@@ -8,11 +8,16 @@ import {
   Image,
 } from "react-native";
 import { RewordAds } from "./Ads"
+import { WEB_URL } from "../config.json"
 import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 
 const navList = [
   { title: "홈", link: "index", icon: "home" },
   { title: "알림", link: "alerts", icon: "bell" },
+  { title: "셔틀버스", link: "Webview", icon: "bus", props: {
+    url: WEB_URL + "/busmap",
+    title: "셔틀버스"
+  } },
   { title: "노래 신청하기", link: "Music", icon: "music" },
 ];
 const CustomSidebarMenu = ({ navigation }) => {
@@ -69,7 +74,7 @@ const CustomSidebarMenu = ({ navigation }) => {
                 paddingLeft: 30,
               }}
               onPress={() => {
-                navigation.navigate(data.link);
+                navigation.navigate(data.link, data.props ? data.props : {});
               }}
             >
               <Icon name={data.icon} size={18} />

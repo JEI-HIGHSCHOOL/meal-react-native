@@ -5,6 +5,5 @@ export const getDate = date => {
   else getMonth = Number(date.getMonth() + 1);
   if ((date.getDate() + 1) < 10) getDate = "0" + Number(date.getDate());
   else getDate = Number(date.getDate());
-  console.log(date.getFullYear() + getMonth.toString() + getDate.toString())
   return date.getFullYear() + getMonth.toString() + getDate.toString();
 };
