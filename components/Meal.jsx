@@ -35,6 +35,7 @@ const Meals = () => {
 
   const onChangeDate = date => {
     setMeal(null);
+    console.log(getDate(date));
     getMeals(getDate(date)).then(data => {
       setMeal(data);
     });
@@ -54,13 +55,13 @@ const Meals = () => {
   };
 
   const onClickNextDate = () => {
-    const nextDate = new Date(date.setDate(date.getDate() + 1));
+    const nextDate = dayjs(date).add(1, "day").toDate();
     setDate(nextDate);
     onChangeDate(nextDate);
   };
 
   const onClickBackDate = () => {
-    const backDate = new Date(date.setDate(date.getDate() - 1));
+    const backDate = dayjs(date).subtract(1, "day").toDate();
     setDate(backDate);
     onChangeDate(backDate);
   };

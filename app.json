@@ -2,7 +2,7 @@
   "expo": {
     "name": "인천재능고등학교",
     "slug": "jh-school-meal-app",
-    "version": "1.7.0",
+    "version": "1.7.1",
     "orientation": "portrait",
     "scheme": "jhschool",
     "icon": "./assets/logo.png",
@@ -29,14 +29,14 @@
       "supportsTablet": true,
       "bundleIdentifier": "me.kimdohyun.jhschoolmeal",
       "googleServicesFile": "./GoogleService-Info.plist",
-      "buildNumber": "1.7.0",
+      "buildNumber": "1.7.1",
       "config": {
         "googleMobileAdsAppId": "ca-app-pub-2701426579223876~7200427777"
       }
     },
     "android": {
       "package": "me.kimdohyun.jhschoolmeal",
-      "versionCode": 15,
+      "versionCode": 16,
       "permissions": ["com.google.android.gms.permission.AD_ID", "NOTIFICATIONS"],
       "adaptiveIcon": {
         "backgroundImage": "./assets/logo.png",
