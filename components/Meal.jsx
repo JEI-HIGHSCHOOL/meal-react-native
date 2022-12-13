@@ -5,40 +5,17 @@ import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { StyleSheet, Text, View } from "react-native";
 import { IconButton } from "react-native-paper";
 import { getDate } from "../utils/date";
+import { fetchMeal } from "../store/slices/mealSlice";
 import Lottie from "lottie-react-native";
+import { useSelector, useDispatch } from "react-redux";
 
 const Meals = () => {
-  const [meal, setMeal] = useState();
+  const dispatch = useDispatch();
+  const { meals, loading } = useSelector((state) => state.meal);
   const [date, setDate] = useState(new Date());
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
-
-  const getMeals = async date => {
-    const meals = await axios
-      .get(
-        `https://open.neis.go.kr/hub/mealServiceDietInfo?type=json&SD_SCHUL_CODE=7310561&ATPT_OFCDC_SC_CODE=E10&MLSV_YMD=${date}&KEY=c83cfc7e1e3c48249749f57fb666ed16`
-      )
-      .catch(e => {
-        return ["급식을 불러오는중 오류가 발생했습니다"];
-      });
-    if (!meals.data.mealServiceDietInfo)
-      return ["해당하는 날짜는 급식이 없습니다"];
-    let todayMeal = meals.data.mealServiceDietInfo[1]["row"][0]["DDISH_NM"];
-    todayMeal = todayMeal.split("<br/>");
-    return todayMeal;
-  };
-
-  useEffect(() => {
-    getMeals(getDate(new Date())).then(data => {
-      setMeal(data);
-    });
-  }, []);
-
-  const onChangeDate = date => {
-    setMeal(null);
-    console.log(getDate(date));
-    getMeals(getDate(date)).then(data => {
-      setMeal(data);
-    });
+  const onChangeDate = (date) => {
+    dispatch(fetchMeal({ date: getDate(date) }))
   };
   const showDatePicker = () => {
     setDatePickerVisibility(true);
@@ -48,7 +25,7 @@ const Meals = () => {
     setDatePickerVisibility(false);
   };
 
-  const handleConfirm = date => {
+  const handleConfirm = (date) => {
     setDate(date);
     onChangeDate(date);
     hideDatePicker();
@@ -67,15 +44,17 @@ const Meals = () => {
   };
   return (
     <>
-      <View style={{
-        display: "flex",
-        alignItems: "center",
-        marginLeft: "auto",
-        marginRight: "auto",
-        width: "100%",
-        height: 175,
-        marginBottom: 40
-      }}>
+      <View
+        style={{
+          display: "flex",
+          alignItems: "center",
+          marginLeft: "auto",
+          marginRight: "auto",
+          width: "100%",
+          height: 175,
+          marginBottom: 40,
+        }}
+      >
         <View style={styles.selectDate}>
           <IconButton
             icon="arrow-left"
@@ -103,20 +82,20 @@ const Meals = () => {
           cancelTextIOS="취소"
         />
         <View style={styles.mealList}>
-          {meal ? (
-            <>
-              {meal.map((meal, index) => (
-                <Text style={styles.meal} key={index}>
-                  {meal}
-                </Text>
-              ))}
-            </>
-          ) : (
+          {loading ? (
             <Lottie
               source={require("../assets/animation/food_loading.json")}
               autoPlay
               loop
             />
+          ) : (
+            <>
+              {meals.map((meal, index) => (
+                <Text style={styles.meal} key={index}>
+                  {meal}
+                </Text>
+              ))}
+            </>
           )}
         </View>
       </View>

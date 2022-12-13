@@ -10,20 +10,17 @@ import { client } from "../utils/client";
 import dayjs from "dayjs";
 import Icon from "@expo/vector-icons/FontAwesome";
 import Lottie from "lottie-react-native";
+import { useSelector } from "react-redux";
 
 export default function Notice({ navigation }) {
-  const [notices, setNotices] = useState();
-  useEffect(() => {
-    client("GET", "/push/notice").then((data) => {
-      if (data.error) return;
-      setNotices(data.data);
-    });
-  }, []);
+  const { notices, loading } = useSelector((state) => state.notice);
+
   const goNoticePage = (data) => {
     navigation.navigate("alert", {
       ...data,
     });
   };
+  
   return (
     <ScrollView>
       <View style={styles.container}>
@@ -60,7 +57,13 @@ export default function Notice({ navigation }) {
             alignItems: "center",
           }}
         >
-          {notices ? (
+          {loading ? (
+            <Lottie
+              source={require("../assets/animation/loading.json")}
+              autoPlay
+              loop
+            />
+          ) : (
             <>
               {notices.length === 0 ? (
                 <>
@@ -105,12 +108,6 @@ export default function Notice({ navigation }) {
                 </>
               )}
             </>
-          ) : (
-            <Lottie
-              source={require("../assets/animation/loading.json")}
-              autoPlay
-              loop
-            />
           )}
         </View>
       </View>

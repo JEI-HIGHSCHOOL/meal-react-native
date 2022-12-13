@@ -1,24 +1,25 @@
 import { Text, View, TouchableOpacity, StyleSheet } from "react-native";
 import Icon from "@expo/vector-icons/FontAwesome";
 import { useState, useEffect } from "react";
-import { client } from "../utils/client";
+import { fetchNotice } from "../store/slices/noticeSlice";
 import Lottie from "lottie-react-native";
 import dayjs from "dayjs";
+import { useSelector, useDispatch } from "react-redux";
 
 const Notice = ({ navigation, setRefreshing, refresh }) => {
-  const [notices, setNotices] = useState();
-  useEffect(() => {
-    client("GET", "/push/notice").then(data => {
-      setRefreshing(false)
-      if (data.error) return;
-      setNotices(data.data);
-    });
-  }, [refresh]);
+  const dispatch = useDispatch();
+  const { notices, loading } = useSelector((state) => state.notice);
   const goNoticePage = (data) => {
-    navigation.navigate('alert', {
-      ...data
-    })
-  }
+    navigation.navigate("alert", {
+      ...data,
+    });
+  };
+
+  useEffect(() => {
+    dispatch(fetchNotice({}));
+    setRefreshing(false);
+  }, [refresh]);
+
   return (
     <>
       <View style={styles.container}>
@@ -55,16 +56,28 @@ const Notice = ({ navigation, setRefreshing, refresh }) => {
           </TouchableOpacity>
         </View>
         <View style={styles.alertContainer}>
-          {notices ? (
+          {loading ? (
+            <Lottie
+              source={require("../assets/animation/loading.json")}
+              autoPlay
+              loop
+            />
+          ) : (
             <>
               {notices.length === 0 ? (
-                <><Text style={{
-                  marginTop: "auto",
-                  marginBottom: "auto"
-                }}>등록된 공지가 없습니다</Text></>
+                <>
+                  <Text
+                    style={{
+                      marginTop: "auto",
+                      marginBottom: "auto",
+                    }}
+                  >
+                    등록된 공지가 없습니다
+                  </Text>
+                </>
               ) : (
                 <>
-                  {notices.slice(0, 3).map(notice => (
+                  {notices.slice(0, 3).map((notice) => (
                     <TouchableOpacity
                       key={notice._id}
                       style={{
@@ -78,28 +91,29 @@ const Notice = ({ navigation, setRefreshing, refresh }) => {
                         marginBottom: 2,
                         display: "flex",
                         justifyContent: "space-between",
-                        flexDirection: "row"
+                        flexDirection: "row",
                       }}
                       onPress={() => {
-                        goNoticePage(notice)
+                        goNoticePage(notice);
                       }}
                     >
-                      <Text style={{
-                        fontWeight: "600",
-                        maxWidth: "73%"
-                      }} numberOfLines={1}>{notice.title}</Text>
-                      <Text>{dayjs(notice.published_date).format('YYYY-MM-DD')}</Text>
+                      <Text
+                        style={{
+                          fontWeight: "600",
+                          maxWidth: "73%",
+                        }}
+                        numberOfLines={1}
+                      >
+                        {notice.title}
+                      </Text>
+                      <Text>
+                        {dayjs(notice.published_date).format("YYYY-MM-DD")}
+                      </Text>
                     </TouchableOpacity>
                   ))}
                 </>
               )}
             </>
-          ) : (
-            <Lottie
-              source={require("../assets/animation/loading.json")}
-              autoPlay
-              loop
-            />
           )}
         </View>
       </View>
@@ -111,7 +125,7 @@ const styles = StyleSheet.create({
   container: {
     maxWidth: "90%",
     marginTop: 1,
-    height: 180
+    height: 180,
   },
   font: {
     fontSize: 16,

@@ -16,6 +16,7 @@
     "@react-navigation/drawer": "^6.4.4",
     "@react-navigation/native": "^6.0.12",
     "@react-navigation/stack": "^6.2.3",
+    "@reduxjs/toolkit": "^1.9.1",
     "axios": "^0.27.2",
     "dayjs": "^1.11.6",
     "deprecated-react-native-prop-types": "^2.3.0",
@@ -47,10 +48,13 @@
     "react-native-swiper": "^1.6.0",
     "react-native-web": "0.17.7",
     "react-native-webview": "11.18.1",
+    "react-redux": "^8.0.5",
+    "redux-logger": "^3.0.6",
     "uuid": "^8.3.2"
   },
   "devDependencies": {
-    "@babel/core": "^7.12.9"
+    "@babel/core": "^7.12.9",
+    "@types/redux-logger": "^3.0.9"
   },
   "private": true
 }
